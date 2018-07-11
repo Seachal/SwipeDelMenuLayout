@@ -35,7 +35,9 @@ public class ListViewDelDemoActivity extends AppCompatActivity {
                 holder.setOnClickListener(R.id.content, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        ((SwipeMenuLayout) holder.getConvertView()).smoothExpand();
                         Toast.makeText(ListViewDelDemoActivity.this, "position:" + position, Toast.LENGTH_SHORT).show();
+
                     }
                 });
 
