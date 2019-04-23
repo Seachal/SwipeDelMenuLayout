@@ -148,7 +148,7 @@ public class SwipeMenuLayout extends ViewGroup {
     }
 
     /**
-     * 设置是否开启左滑出菜单，设置false 为右滑出菜单
+     * 设置是否开启左滑出菜单，设置false 为右滑出菜单  默认为左滑
      *
      * @param leftSwipe
      * @return
@@ -168,6 +168,7 @@ public class SwipeMenuLayout extends ViewGroup {
     }
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr) {
+//       seachal 获取系统的值作为初始值
         mScaleTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
         mMaxVelocity = ViewConfiguration.get(context).getScaledMaximumFlingVelocity();
         //初始化滑动帮助类对象
@@ -181,6 +182,8 @@ public class SwipeMenuLayout extends ViewGroup {
         isLeftSwipe = true;
         TypedArray ta = context.getTheme().obtainStyledAttributes(attrs, R.styleable.SwipeMenuLayout, defStyleAttr, 0);
         int count = ta.getIndexCount();
+
+//       传递需要配置的三个参数
         for (int i = 0; i < count; i++) {
             int attr = ta.getIndex(i);
             //如果引用成AndroidLib 资源都不是常量，无法使用switch case
@@ -478,6 +481,8 @@ public class SwipeMenuLayout extends ViewGroup {
                     }
                     //add by zhangxutong 2016 11 03 end
 
+                    break;
+                default:
                     break;
             }
             //模仿IOS 点击其他区域关闭：
