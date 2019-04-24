@@ -47,6 +47,8 @@ import android.view.animation.OvershootInterpolator;
  * 2016 12 09,fix ListView快速滑动快速删除时，偶现菜单不消失的bug。
  * Created by zhangxutong .
  * Date: 16/04/24
+ *
+ *
  */
 public class SwipeMenuLayout extends ViewGroup {
     private static final String TAG = "zxt/SwipeMenuLayout";
@@ -501,6 +503,9 @@ public class SwipeMenuLayout extends ViewGroup {
 
     private boolean isExpand;//代表当前是否是展开状态 2016 11 03 add
 
+    /**
+     * 平滑展开
+     */
     public void smoothExpand() {
         //Log.d(TAG, "smoothExpand() called" + this);
         /*mScroller.startScroll(getScrollX(), 0, mRightMenuWidths - getScrollX(), 0);
@@ -605,8 +610,8 @@ public class SwipeMenuLayout extends ViewGroup {
     }
 
     //每次ViewDetach的时候，判断一下 ViewCache是不是自己，如果是自己，关闭侧滑菜单，且ViewCache设置为null，
-    // 理由：1 防止内存泄漏(ViewCache是一个静态变量)
-    // 2 侧滑删除后自己后，这个View被Recycler回收，复用，下一个进入屏幕的View的状态应该是普通状态，而不是展开状态。
+    // 理由：1. 防止内存泄漏(ViewCache是一个静态变量)
+    //      2. 侧滑删除后自己后，这个View被Recycler回收，复用，下一个进入屏幕的View的状态应该是普通状态，而不是展开状态。
     @Override
     protected void onDetachedFromWindow() {
         if (this == mViewCache) {
@@ -625,6 +630,7 @@ public class SwipeMenuLayout extends ViewGroup {
         return super.performLongClick();
     }
 
+//
     //平滑滚动 弃用 改属性动画实现
 /*    @Override
     public void computeScroll() {
